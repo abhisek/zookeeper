@@ -51,7 +51,7 @@ jobs:
         path: .safedep/pacman
         fetch-depth: 0
     - name: Configure environment with Pacman
-      run: ./pacman configure-from-env && ./pacman.sh setup-maven
+      run: ./pacman.sh configure-from-env && ./pacman.sh setup-maven
       env:
         GATEWAY_URL: ${{ secrets.GATEWAY_URL }}
         GATEWAY_USERNAME: ${{ secrets.GATEWAY_USERNAME }}
