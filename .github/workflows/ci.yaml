@@ -38,7 +38,7 @@ jobs:
         profile:
           - name: 'full-build-jdk8'
             jdk: 8
-            args: '-Pfull-build -DskipTests'
+            args: '-Pfull-build -DskipTests compile'
       fail-fast: false
     timeout-minutes: 30
     runs-on: ubuntu-latest
