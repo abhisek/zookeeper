@@ -24,6 +24,9 @@
 name: CI
 
 on:
+  workflow_call:
+    # To enable manual trigger
+
   push:
     branches:
       - master
