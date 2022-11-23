@@ -43,6 +43,15 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
+    # Checkout source code and run build
+    - uses: actions/checkout@v3
+    - name: Set up JDK ${{ matrix.profile.jdk }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.profile.jdk }}
+    - name: Install C Dependencies
+      run: sudo apt-get install libcppunit-dev libsasl2-dev
+
     # Setup environment using SafeDep pacman
     - uses: actions/checkout@v3
       name: Checkout SafeDep Pacman
@@ -60,15 +69,6 @@ jobs:
         GATEWAY_PASSWORD: ${{ secrets.GATEWAY_PASSWORD }}
         GATEWAY_PROJECT_ID: ${{ github.event.repository.name }}
 
-
-    # Checkout source code and run build
-    - uses: actions/checkout@v3
-    - name: Set up JDK ${{ matrix.profile.jdk }}
-      uses: actions/setup-java@v1
-      with:
-        java-version: ${{ matrix.profile.jdk }}
-    - name: Install C Dependencies
-      run: sudo apt-get install libcppunit-dev libsasl2-dev
     - name: Build with Maven (${{ matrix.profile.name }})
       run: mvn -B -V -e -ntp "-Dstyle.color=always" ${{ matrix.profile.args }}
       env:
